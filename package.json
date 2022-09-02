@@ -2,8 +2,11 @@
   "name": "running_club",
   "version": "1.0.0",
   "description": "running club",
-  "main": "index.js",
-  "bin": ".index.js",
+  "main": "club.js",
+  "bin": {
+    "club": "club.js"
+  },
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +14,15 @@
   "keywords": [],
   "author": "Iurii Pastushenko",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IuriiPastushenko/runningClub.git"
+  },
   "bugs": {
     "email": "upas@ukr.net"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "chalk": "^5.0.1"
   }
 }
