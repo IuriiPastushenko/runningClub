@@ -3,19 +3,19 @@
 import { currentCity, currentSportsman } from "../helpers/argv.js";
 import { getKeyValue } from "./storage_service.js";
 import axios from "axios";
-import { printWindSpeed, printTemp, printDesc } from "./log_services.js";
+import { printWindSpeed, printTemp, printDesc, printError } from "./log_services.js";
 
 
 
 const getWeather  = async () => {
   const token = await getKeyValue(currentSportsman);
   if (!token) {
-    throw new Error ('Не задан ключ АПИ погоды');
+    throw printError('Не задан ключ АПИ погоды');
   };
 
   const coordinaty = await getKeyValue(currentCity);
   if (!coordinaty) {
-    throw new Error ('Не заданы координаты города  ');
+    throw printError('Не заданы координаты города  ');
   };
 
   const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather', {

@@ -31,20 +31,22 @@ const initRC = () => {
     printDateTime(currentData);
     printReadInput(currentData);
   } else {
-    printError('Дата не определена');
+    throw printError('Дата не определена');
   };
 
   if (currentCity) {
     printReadInput(currentCity);
     saveToken(currentCity, 'city')
   } else {
-    printError('Город не определен');
+    throw printError('Город не определен');
   };
 
   if (currentSportsman) {
     printReadInput(currentSportsman);
     saveToken(currentSportsman, 'name');
-  } else {printError('Спортсмен не определен')}
+  } else {
+    throw printError('Спортсмен не определен')
+    }
 
 }
 
@@ -52,7 +54,12 @@ initRC();
 
 // получение данных о погоде
 const weatherStart = async ()=> { 
-  await getWeather();
+  try {
+    await getWeather();
+  } catch (err) {
+      printError('Ошибка АПИ погоды');
+      throw printError(err.message);
+    }  
 };
 
 weatherStart();

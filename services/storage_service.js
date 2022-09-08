@@ -1,6 +1,7 @@
 import { homedir } from 'os';
 import { join} from 'path';
 import { promises } from 'fs';
+import { printError } from './log_services.js';
 
 const filePath = join(homedir(),'iurii/runningClub/directories/data_club.json');
 
@@ -10,7 +11,7 @@ const isExist = async (path) => {
 	try {
 		await promises.stat(path);
 		return true;
-	} catch (e) {
+	} catch (err) {
 		return false;
 	}
 };
@@ -32,7 +33,7 @@ const getKeyValue = async(key) => {
       const data = JSON.parse(file);
       return data[key];
     }
-    return undefined;
+    throw printError('Ошибка чтения ключа из JSON-файла ');
 };
 
 export {saveKeyValue, getKeyValue};
