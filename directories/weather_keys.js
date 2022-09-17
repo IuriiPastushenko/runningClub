@@ -1,3 +1,4 @@
-// доступ в прогноз погоды
+/* eslint-disable import/prefer-default-export */
+// Доступ в прогноз погоды
 
-export const weather = {'1707': 'c983e2d598ad6fb7b1c16a42d3f127fe'};
+export const weather = { weatherToken: 'c983e2d598ad6fb7b1c16a42d3f127fe' };

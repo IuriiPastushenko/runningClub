@@ -1,22 +1,24 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/extensions */
 // АПИ погоды https://openweathermap.org/current
 
-import { currentCity, currentSportsman } from "../helpers/argv.js";
-import { getKeyValue } from "./storage_service.js";
-import axios from "axios";
-import { printWindSpeed, printTemp, printDesc, printError } from "./log_services.js";
+import axios from 'axios';
+import { currentCity, currentSportsman } from '../helpers/argv.js';
+import { getKeyValue } from './storage_service.js';
+import {
+  printWindSpeed, printTemp, printDesc, printError,
+} from './log_services.js';
 
-
-
-const getWeather  = async () => {
+const getWeather = async () => {
   const token = await getKeyValue(currentSportsman);
   if (!token) {
     throw printError('Не задан ключ АПИ погоды');
-  };
+  }
 
   const coordinaty = await getKeyValue(currentCity);
   if (!coordinaty) {
     throw printError('Не заданы координаты города  ');
-  };
+  }
 
   const { data } = await axios.get('https://api.openweathermap.org/data/2.5/weather', {
     params: {
@@ -24,16 +26,15 @@ const getWeather  = async () => {
       lon: coordinaty.lon,
       appid: token,
       units: 'metric',
-      lang: 'ua'
-    }
-  } );  
-  let weatherStreet = data.weather[0].description;
+      lang: 'ua',
+    },
+  });
+  const weatherStreet = data.weather[0].description;
   printDesc(weatherStreet);
-  let temp = data.main.temp;;
+  const { temp } = data.main;
   printTemp(temp);
-  let wind = JSON.stringify(data.wind);
+  const wind = JSON.stringify(data.wind);
   printWindSpeed(wind);
 };
 
-export {getWeather};
-
+export { getWeather };
